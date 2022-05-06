@@ -15,7 +15,7 @@ namespace LetMeOut
         public const string PluginGUID = PluginAuthor + "." + PluginName;
         public const string PluginAuthor = "viniciuslrangel";
         public const string PluginName = "LetMeOut";
-        public const string PluginVersion = "1.1.0";
+        public const string PluginVersion = "1.1.1";
 
         private bool bIsCharging = false;
         private float chargeTime = 0f;
@@ -54,7 +54,15 @@ namespace LetMeOut
                 chargeTime = Time.time + chargeTimeDelay;
             };
 
-            TeleporterInteraction.onTeleporterChargedGlobal += interaction => { bIsCharging = false; };
+            TeleporterInteraction.onTeleporterChargedGlobal += interaction =>
+            {
+                bIsCharging = false;
+                if (restrictionDome != null)
+                {
+                    Destroy(restrictionDome);
+                }
+                restrictionDome = null;
+            };
 
             // This line of log will appear in the bepinex console when the Awake method is done.
             Log.LogInfo(nameof(Awake) + " done.");
