@@ -1,7 +1,7 @@
 ﻿{
 	"name": "LetMeOut",
 	"version_number": "1.1.1",
-	"website_url": "",
+	"website_url": "https://github.com/viniciuslrangel/RoR2Mods/tree/main/LetMeOut",
 	"description": "LetMeOut",
 	"dependencies": [
 		"bbepis-BepInExPack-5.4.9",
