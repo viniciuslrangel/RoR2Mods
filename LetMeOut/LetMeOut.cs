@@ -15,8 +15,9 @@ namespace LetMeOut
         public const string PluginGUID = PluginAuthor + "." + PluginName;
         public const string PluginAuthor = "viniciuslrangel";
         public const string PluginName = "LetMeOut";
-        public const string PluginVersion = "1.1.1";
+        public const string PluginVersion = "1.1.2";
 
+        private HoldoutZoneController currentTeleporter = null;
         private bool bIsCharging = false;
         private float chargeTime = 0f;
         private float chargeTimeDelay = 2f;
@@ -80,6 +81,20 @@ namespace LetMeOut
             if (controller == null)
             {
                 return;
+            }
+
+            if (controller != currentTeleporter)
+            {
+                if (currentTeleporter == null)
+                {
+                    currentTeleporter = controller;
+                }
+                else
+                {
+                    bIsCharging = false;
+                    currentTeleporter = null;
+                    return;
+                }
             }
 
             if (controller.wasCharged)
