@@ -1,10 +1,11 @@
 ﻿{
 	"name": "LetMeOut",
-	"version_number": "1.1.2",
+	"version_number": "1.1.3",
 	"website_url": "https://github.com/viniciuslrangel/RoR2Mods/tree/main/LetMeOut",
 	"description": "LetMeOut",
 	"dependencies": [
 		"bbepis-BepInExPack-5.4.9",
-		"RiskofThunder-HookGenPatcher-1.2.1"
+		"RiskofThunder-HookGenPatcher-1.2.1",
+		"tristanmcpherson-R2API-4.3.21"
 	]
 }

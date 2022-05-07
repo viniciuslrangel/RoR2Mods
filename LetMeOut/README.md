@@ -8,7 +8,7 @@ This mod restricts the player inside teleport events to avoid some kind of behav
 **1.1.x**
 - **Patches**
   - **.1**: Fix dome not being removed when teleporter charges
-  - **.2**: Fix bug that keeps teleporter active next game when everyone dies inside 
+  - **.3**: Fix bug that keeps teleporter active next game when everyone dies inside 
 - Add delay before teleporting
 - Using Mesh to collision (avoid clipping through walls)
 - Better bounce calculation

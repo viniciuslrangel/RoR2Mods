@@ -2,6 +2,7 @@ using System;
 using BepInEx;
 using RoR2;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 namespace LetMeOut
@@ -17,7 +18,6 @@ namespace LetMeOut
         public const string PluginName = "LetMeOut";
         public const string PluginVersion = "1.1.2";
 
-        private HoldoutZoneController currentTeleporter = null;
         private bool bIsCharging = false;
         private float chargeTime = 0f;
         private float chargeTimeDelay = 2f;
@@ -33,7 +33,7 @@ namespace LetMeOut
             //But now we have defined an item, but it doesn't do anything yet. So we'll need to define that ourselves.
             // GlobalEventManager.onCharacterDeathGlobal += GlobalEventManager_onCharacterDeathGlobal;
 
-            SceneDirector.onPreGeneratePlayerSpawnPointsServer += (SceneDirector director, ref Action method) =>
+            void TurnOff()
             {
                 bIsCharging = false;
                 if (restrictionDome != null)
@@ -42,6 +42,11 @@ namespace LetMeOut
                 }
 
                 restrictionDome = null;
+            }
+
+            SceneManager.sceneLoaded += (arg0, mode) =>
+            {
+                TurnOff();
             };
 
             TeleporterInteraction.onTeleporterBeginChargingGlobal += interaction =>
@@ -57,12 +62,7 @@ namespace LetMeOut
 
             TeleporterInteraction.onTeleporterChargedGlobal += interaction =>
             {
-                bIsCharging = false;
-                if (restrictionDome != null)
-                {
-                    Destroy(restrictionDome);
-                }
-                restrictionDome = null;
+                TurnOff();
             };
 
             // This line of log will appear in the bepinex console when the Awake method is done.
@@ -81,20 +81,6 @@ namespace LetMeOut
             if (controller == null)
             {
                 return;
-            }
-
-            if (controller != currentTeleporter)
-            {
-                if (currentTeleporter == null)
-                {
-                    currentTeleporter = controller;
-                }
-                else
-                {
-                    bIsCharging = false;
-                    currentTeleporter = null;
-                    return;
-                }
             }
 
             if (controller.wasCharged)
